@@ -9,7 +9,7 @@ RESPONSE 200
 ```
 {
     "links": {
-        "next": "http://127.0.0.1:8000/api/v1/ingredients/?page=2&search=stripe",
+        "next": "http://127.0.0.1:8000/api/v1/ingredients?page=2&search=stripe",
         "previous": null
     },
     "count": 96,
@@ -69,7 +69,7 @@ RESPONSE 200
 ```
 {
     "links": {
-        "next": "http://127.0.0.1:8000/api/v1/recipes/?page=2",
+        "next": "http://127.0.0.1:8000/api/v1/recipes?page=2",
         "previous": null
     },
     "count": 2344,
@@ -107,7 +107,7 @@ RESPONSE 200
 ```
 {
     "links": {
-        "next": "http://127.0.0.1:8000/api/v1/recipes/?page=2",
+        "next": "http://127.0.0.1:8000/api/v1/recipes?page=2",
         "previous": null
     },
     "count": 2344,
