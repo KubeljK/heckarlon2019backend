@@ -9,11 +9,11 @@ urlpatterns = [
     path("health", views.Health.as_view(), name="health"),
 
     # Ingredients
-    path("v1/ingredients/", views.IngredientList.as_view(), name="ingredient-list"),
+    path("v1/ingredients", views.IngredientList.as_view(), name="ingredient-list"),
     path("v1/ingredients/<int:pk>", views.IngredientDetails.as_view(), name="ingredient-detail"),
 
     # Recipes
-    path("v1/recipes/", views.RecipeList.as_view(), name="recipe-list"),
+    path("v1/recipes", views.RecipeList.as_view(), name="recipe-list"),
     path("v1/recipes/<int:pk>", views.RecipeDetails.as_view(), name="recipe-detail"),
 
     # # GET and POST Recipes
