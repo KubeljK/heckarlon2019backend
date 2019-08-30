@@ -2,8 +2,9 @@
 -----------------
 # FOODS
 -----------------
-GET /api/v1/ingredients/?search=&name=&manufacturer=
+GET /api/v1/ingredients?search=&name=&manufacturer=
 - Searching is done only by "name" attribute.
+  
 RESPONSE 200
 ```
 {
@@ -31,6 +32,7 @@ RESPONSE 200
 ```
 -----------------
 GET api/v1/ingredients/54363
+
 RESPONSE 200
 ```
 {
@@ -61,7 +63,8 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/v1/recipes/
+GET api/v1/recipes
+
 RESPONSE 200
 ```
 {
@@ -94,7 +97,7 @@ RESPONSE 200
 }
 ```
 -----------------
-POST api/v1/recipes/
+POST api/v1/recipes
 ```
 {
     "recipe_ids": [33] // Has to be a list, can contain as many ids as you want.
@@ -133,6 +136,7 @@ RESPONSE 200
 ```
 -----------------
 GET api/v1/recipes/85
+
 RESPONSE 200
 ```
 {
@@ -172,7 +176,7 @@ RESPONSE 200
 -----------------
 # USERS
 -----------------
-POST api/users/register/
+POST api/users/register
 ```
 {
     "username": "test",
@@ -217,7 +221,8 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/users/profile/
+GET api/users/profile
+
 RESPONSE 200
 ```
 {
@@ -237,7 +242,7 @@ RESPONSE 200
 }
 ```
 -----------------
-POST api/users/profile/ #Update profile
+POST api/users/profile #Update profile
 ```
 {
     "url": "http://127.0.0.1:8000/api/users/4",
@@ -274,7 +279,8 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/users/
+GET api/users
+
 RESPONSE 200
 ```
 {
@@ -316,6 +322,7 @@ RESPONSE 200
 ```
 -----------------
 GET api/users/<id>
+
 RESPONSE 200
 ```
 {
