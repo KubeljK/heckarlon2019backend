@@ -73,7 +73,7 @@ class IngredientDetails(generics.RetrieveAPIView):
 
     permission_classes = (permissions.IsAuthenticated, )
     serializer_class = IngredientSerializer
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.all()[:1000]
 
 class RecipeList(generics.ListAPIView):
 
