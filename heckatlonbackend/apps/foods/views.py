@@ -21,7 +21,7 @@ logger = logging.getLogger("data_logger")
 from apps.userprofile.permissions import IsDeveloperOrAdmin
 from .models import RecipeCategory, Recipe, IngredientCategory, Ingredient, Nutrients, RecipeIngredient
 from .serializers import IngredientListSerializer, IngredientSerializer,\
-    RecipeIngredientSerializer, RecipeSerializer, RecipeListSerializer
+    RecipeIngredientSerializer, RecipeSerializer, RecipeListSerializer, IngredientListNameOnlySerializer
 from .services import DataPosterService, DataGetterService
 
 
@@ -64,8 +64,8 @@ class IngredientListNames(generics.ListAPIView):
     """
 
     permission_classes = (permissions.IsAuthenticated, )
-    serializer_class = IngredientListSerializer
-    queryset = Ingredient.objects.all()
+    serializer_class = IngredientListNameOnlySerializer
+    queryset = Ingredient.objects.all()[:1000]
 
     pagination_class = None
 
@@ -73,7 +73,7 @@ class IngredientDetails(generics.RetrieveAPIView):
 
     permission_classes = (permissions.IsAuthenticated, )
     serializer_class = IngredientSerializer
-    queryset = Ingredient.objects.all()[:1000]
+    queryset = Ingredient.objects.all()
 
 class RecipeList(generics.ListAPIView):
 
