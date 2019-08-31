@@ -91,6 +91,10 @@ class RecipeList(generics.ListAPIView):
         for ingredient_id in ingredient_ids:
             queryset = queryset.filter(ingredients__ingredient__id=ingredient_id)
 
+        # TODO: This is for development only!
+        # Make a proper weight funtion.
+        queryset = queryset[:20]
+
         ingredients = self.serializer_class(
             queryset, many=True, context={'request': request,}
             )
