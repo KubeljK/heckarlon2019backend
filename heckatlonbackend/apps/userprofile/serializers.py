@@ -2,7 +2,9 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from apps.userprofile.models import Profile
+from apps.userprofile.models import Profile, Inventory, InventoryIngredient
+from apps.foods.serializers import IngredientSerializer
+from apps.foods.models import Ingredient
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,3 +52,79 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.save() # This already creates an Profile and Inventory instances.
 
         return user
+
+class InventoryIngredientSerializer(serializers.ModelSerializer):
+    """
+    InventoryIngredient with ingredient.
+    """
+    ingredient = IngredientSerializer()
+
+    class Meta:
+        model = InventoryIngredient
+        fields = [
+            'id', 'ingredient', 'quantity', 'unit',
+        ]
+
+class InventorySerializer(serializers.ModelSerializer):
+    """
+    Inventory with ingredients
+    """
+    ingredients = InventoryIngredientSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Inventory
+        fields = [
+            'url', 'name', 'desc', 'ingredients'
+        ]
+
+class InventoryListSerializer(serializers.ModelSerializer):
+    """
+    Inventory without ingredients.
+    """
+    class Meta:
+        model = Inventory
+        fields = [
+            'url', 'name', 'desc'
+        ]
+
+class InventoryIngredientInsertSerializer(serializers.ModelSerializer):
+    """
+    InventoryIngredient with FK ids processing.
+    """
+    ingredient_id = serializers.IntegerField()
+    inventory_id = serializers.IntegerField()
+   
+    class Meta:
+        model = InventoryIngredient
+        fields = [
+            'id', 'inventory_id', 'ingredient_id', 'quantity', 'unit',
+        ]
+    
+    def create(self, validated_data):
+
+        inventory = Inventory.objects.get(id=validated_data["inventory_id"])
+        ingredient = Ingredient.objects.get(id=validated_data["ingredient_id"])
+
+        instance = InventoryIngredient(
+            inventory=inventory,
+            ingredient=ingredient,
+            quantity=validated_data.get("quantity", "by taste"),
+            unit=validated_data.get("unit", "g"))
+
+        instance.save()
+
+        return instance
+
+class InventoryIngredientUpdateSerializer(serializers.ModelSerializer):
+    """
+    InventoryIngredient with only quantity and unit fields.
+    """
+   
+    class Meta:
+        model = InventoryIngredient
+        fields = [
+            'id', 'inventory_id', 'ingredient_id', 'quantity', 'unit',
+        ]
+        read_only_fields = [
+            'id', 'ingredient', 'inventory',
+        ]

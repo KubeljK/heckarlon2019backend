@@ -128,7 +128,7 @@
 **DATA**
 ```json
 {
-    "recipe_ids": [33] // Has to be a list, can contain as many ids as you want.
+    "ingredient_ids": [33] // Has to be a list, can contain as many ids as you want.
 }
 ```
 
@@ -424,4 +424,164 @@
     }
 }
 ```
+-----------------
+### User inventories list
+**URL** : `/api/users/profile/inventories`
+
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
+[
+    {
+        "url": "http://localhost:8000/api/users/profile/inventories/5",
+        "name": "Moj inventory 1234563",
+        "desc": "This inventory is automatically created 123"
+    },
+    {
+        "url": "http://localhost:8000/api/users/profile/inventories/6",
+        "name": "Moj drug inventory",
+        "desc": "Nek drug inventori"
+    }
+]
+```
+-----------------
+### User inventories details and update
+**URL** : `/api/users/profile/inventories/<id>`
+
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
+{
+    "url": "http://localhost:8000/api/users/profile/inventories/5",
+    "name": "Moj inventory 1234563",
+    "desc": "This inventory is automatically created 123",
+    "ingredients": [
+        {
+            "id": 9,
+            "ingredient": {
+                "url": "http://localhost:8000/api/v1/ingredients/25",
+                "name": "original barbecue sauce",
+                "description": null,
+                "manufacturer": "fresh & easy",
+                "nutrients": []
+            },
+            "quantity": "by taste",
+            "unit": "misic"
+        },
+        {
+            "id": 8,
+            "ingredient": {
+                "url": "http://localhost:8000/api/v1/ingredients/23",
+                "name": "hot & spicy barbecue sauce",
+                "description": null,
+                "manufacturer": "fresh & easy",
+                "nutrients": []
+            },
+            "quantity": "by taste",
+            "unit": "test"
+        }
+    ]
+}
+```
+
+**METHOD** : `PUT`
+
+**DATA**
+```json
+{
+    "name": "This is an updated inventory name",
+    "desc": "This is an updated inventory desc",
+}
+```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
+{
+    "url": "http://localhost:8000/api/users/profile/inventories/5",
+    "name": "Moj inventory 1234563",
+    "desc": "This inventory is automatically created 123",
+    "ingredients": [...]
+}
+```
+
+**METHOD** : `POST` **Insert new ingredient to inventory**
+
+**DATA**
+```json
+{
+    "ingredient_id": "24",
+    "quantity": 100,
+    "unit": "g"
+}
+```
+
+**RESPONSE CODE** : `201 CREATED`
+
+**RESPONSE DATA**
+```json
+{
+    "id": 12,
+    "inventory_id": 5,
+    "ingredient_id": 24,
+    "quantity": 100,
+    "unit": "g"
+}
+```
+
+**METHOD** : `DELETE` **Delete an inventory**
+
+**RESPONSE CODE** : `204 NO CONTENT`
+-----------------
+### User inventories ingredients
+**URL** : `/api/users/profile/inventories/<inventory_id>/ingredient/<id>`
+
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
+{
+    "id": 2,
+    "inventory_id": 5,
+    "ingredient_id": 21,
+    "quantity": "56",
+    "unit": "g"
+}
+```
+
+**METHOD** : `PUT` **Change ingredient amount/unit in a inventory***
+
+**DATA**
+```json
+{
+    "quantity": 100,
+    "unit": "g"
+}
+```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
+{
+    "id": 2,
+    "inventory_id": 5,
+    "ingredient_id": 21,
+    "quantity": "120",
+    "unit": "g"
+}
+```
+
+**METHOD** : `DELETE` **Delete an ingredient from inventory**
+
+**RESPONSE CODE** : `204 NO CONTENT`
 -----------------
