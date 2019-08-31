@@ -65,7 +65,7 @@ class IngredientListNames(generics.ListAPIView):
 
     permission_classes = (permissions.IsAuthenticated, )
     serializer_class = IngredientListNameOnlySerializer
-    queryset = Ingredient.objects.all()[:1000]
+    queryset = Ingredient.objects.exclude(name__icontains=" ") #
 
     pagination_class = None
 

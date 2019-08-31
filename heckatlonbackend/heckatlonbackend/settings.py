@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'heckatlonbackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.postgresql_psycopg2'),
-        'NAME': os.environ.get('SQL_DATABASE', 'database'),
-        'USER': os.environ.get('SQL_USER', 'user'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
+        'NAME': os.environ.get('SQL_DATABASE', 'heckatlondb'),
+        'USER': os.environ.get('SQL_USER', 'heckatlonuser'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'heckatlon2019'),
         'HOST': os.environ.get('SQL_HOST', 'localhost'),
         'PORT': os.environ.get('SQL_PORT', '5432'),
     }
