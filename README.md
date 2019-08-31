@@ -290,37 +290,31 @@
 **RESPONSE DATA**
 ```json
 {
-    "title": null,
-    "dob": null,
-    "address": null,
-    "country": null,
-    "city": null,
-    "zipcode": null,
-    "user": {
-        "url": "http://127.0.0.1:8000/api/users/4",
-        "username": "klemen",
-        "email": "",
-        "first_name": "",
-        "last_name": ""
-    }
-}
-```
------------------
-### Profile update
-**URL** : `/api/users/profile`
-
-**METHOD** : `POST`
-
-**DATA**
-```json
-{
-    "url": "http://127.0.0.1:8000/api/users/4",
+    "url": "http://localhost:8000/api/users/4",
     "username": "klemen",
     "email": "",
     "first_name": "Klemen",
     "last_name": "Kubelj",
     "profile": {
         "title": "asd",
+        "dob": null,
+        "address": "Bukovica, 55",
+        "country": "Slovenia",
+        "city": "Vodice",
+        "zipcode": "1217"
+    }
+}
+```
+
+**METHOD** : `PUT`
+
+**DATA**
+```json
+{
+    "first_name": "Klemen",
+    "last_name": "Kubelj",
+    "profile": {
+        "title": "ffs",
         "dob": null,
         "address": "Bukovica, 55",
         "country": "Slovenia",
@@ -361,9 +355,11 @@
 **RESPONSE DATA**
 ```json
 {
-    "count": 15,
-    "next": null,
-    "previous": null,
+    "links": {
+        "next": null,
+        "previous": null
+    },
+    "total_pages": 1,
     "results": [
         {
             "url": "http://127.0.0.1:8000/api/users/19",
@@ -446,6 +442,29 @@
         "desc": "Nek drug inventori"
     }
 ]
+```
+
+**METHOD** : `POST`
+
+**DATA**
+```json
+{
+    "name": "New inventory name",
+    "desc": "New inventory desc"
+}
+```
+
+**RESPONSE CODE** : `201 CREATED`
+
+**RESPONSE DATA**
+```json
+{
+    "message": "Inventory created",
+    "inventory": {
+        "name": "New inventory name",
+        "desc": "New inventory desc"
+    }
+}
 ```
 -----------------
 ### User inventories details and update
@@ -558,7 +577,7 @@
 }
 ```
 
-**METHOD** : `PUT` **Change ingredient amount/unit in a inventory***
+**METHOD** : `PUT` **Change ingredient amount/unit in a inventory**
 
 **DATA**
 ```json
@@ -584,4 +603,5 @@
 **METHOD** : `DELETE` **Delete an ingredient from inventory**
 
 **RESPONSE CODE** : `204 NO CONTENT`
+
 -----------------
