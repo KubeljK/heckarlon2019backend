@@ -10,6 +10,7 @@ urlpatterns = [
 
     # Ingredients
     path("v1/ingredients", views.IngredientList.as_view(), name="ingredient-list"),
+    path("v1/ingredients/all", views.IngredientListNames.as_view(), name="ingredient-list-names"),
     path("v1/ingredients/<int:pk>", views.IngredientDetails.as_view(), name="ingredient-detail"),
 
     # Recipes

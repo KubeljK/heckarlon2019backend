@@ -58,6 +58,17 @@ class IngredientList(generics.ListAPIView):
     search_fields = ['name']
     filterset_fields = ['name', 'manufacturer']
 
+class IngredientListNames(generics.ListAPIView):
+    """
+    Returns list of ALL ingredients (names and their respective ids).
+    """
+
+    permission_classes = (permissions.IsAuthenticated, )
+    serializer_class = IngredientListSerializer
+    queryset = Ingredient.objects.all()
+
+    pagination_class = None
+
 class IngredientDetails(generics.RetrieveAPIView):
 
     permission_classes = (permissions.IsAuthenticated, )

@@ -37,6 +37,16 @@ class IngredientListSerializer(serializers.ModelSerializer):
             'url', 'name', 'description', 'manufacturer'
         ]
 
+class IngredientListNameOnlySerializer(serializers.ModelSerializer):
+    """
+    Ingredient list, only names and ids.
+    """
+    class Meta:
+        model = Ingredient
+        fields = [
+            'id', 'name',
+        ]
+
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     """
     RecipeIngredient with ingredient.
