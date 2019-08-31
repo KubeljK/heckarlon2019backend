@@ -1,12 +1,25 @@
 # API Structure
 -----------------
-# FOODS
+## FOODS
 -----------------
-GET /api/v1/ingredients?search=&name=&manufacturer=
-- Searching is done only by "name" attribute.
-  
-RESPONSE 200
+### Ingredients
+**URL** : `/api/v1/ingredients`
+
+**METHOD** : `GET`
+
+**DATA**
+```json
+{
+    "search": "search by name",
+    "name": "exact filtering",
+    "manufacturer": "exact filtering"
+}
 ```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "links": {
         "next": "http://127.0.0.1:8000/api/v1/ingredients?page=2&search=stripe",
@@ -31,10 +44,15 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/v1/ingredients/54363
+### Ingredient details
+**URL** : `/api/v1/ingredients/<id>`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "url": "http://127.0.0.1:8000/api/v1/ingredients/54363",
     "name": "snak club, salted mixed nuts",
@@ -63,10 +81,15 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/v1/recipes
+### Recipes
+**URL** : `/api/v1/recipes`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "links": {
         "next": "http://127.0.0.1:8000/api/v1/recipes?page=2",
@@ -97,14 +120,22 @@ RESPONSE 200
 }
 ```
 -----------------
-POST api/v1/recipes
-```
+### Recipes by ingredients
+**URL** : `/api/v1/recipes`
+
+**METHOD** : `POST`
+
+**DATA**
+```json
 {
     "recipe_ids": [33] // Has to be a list, can contain as many ids as you want.
 }
 ```
-RESPONSE 200
-```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "links": {
         "next": "http://127.0.0.1:8000/api/v1/recipes?page=2",
@@ -135,10 +166,15 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/v1/recipes/85
+### Recipe details
+**URL** : `/api/v1/recipes/<id>`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "url": "http://127.0.0.1:8000/api/v1/recipes/85",
     "name": "Marinated Beef Stir Fry with Noodles",
@@ -174,33 +210,48 @@ RESPONSE 200
 }
 ```
 -----------------
-# USERS
+## USERS
 -----------------
-POST api/users/register
-```
+### Register
+**URL** : `/api/users/register`
+
+**METHOD** : `POST`
+
+**DATA**
+```json
 {
     "username": "test",
     "email": "test@gmail.com",
     "password": "test"
 }
 ```
-RESPONSE STATUS 201
-```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "username": "test",
     "email": "test@gmail.com"
 }
 ```
 -----------------
+### Login
+**URL** : `/api/users/login`
 
-POST api/users/login
-```
+**METHOD** : `POST`
+
+**DATA**
+```json
 {
     "username": "test",
     "password": "test"
 }
 ```
-RESPONSE 200
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
 ```
 {
     "refresh": "refreshtoken",
@@ -208,23 +259,36 @@ RESPONSE 200
 }
 ```
 -----------------
-POST api/users/login/refresh
-```
+### Refresh
+**URL** : `/api/users/login/refresh`
+
+**METHOD** : `POST`
+
+**DATA**
+```json
 {
     "refresh": "refreshtoken"
 }
 ```
-RESPONSE 200
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
 ```
 {
     "access": "accesstoken"
 }
 ```
 -----------------
-GET api/users/profile
+### Profile
+**URL** : `/api/users/profile`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "title": null,
     "dob": null,
@@ -242,8 +306,13 @@ RESPONSE 200
 }
 ```
 -----------------
-POST api/users/profile #Update profile
-```
+### Profile update
+**URL** : `/api/users/profile`
+
+**METHOD** : `POST`
+
+**DATA**
+```json
 {
     "url": "http://127.0.0.1:8000/api/users/4",
     "username": "klemen",
@@ -260,8 +329,11 @@ POST api/users/profile #Update profile
     }
 }
 ```
-RESPONSE 200
-```
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "url": "http://127.0.0.1:8000/api/users/4",
     "username": "klemen",
@@ -279,10 +351,15 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/users
+### Users list
+**URL** : `/api/users`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "count": 15,
     "next": null,
@@ -321,10 +398,15 @@ RESPONSE 200
 }
 ```
 -----------------
-GET api/users/<id>
+### User details
+**URL** : `/api/users/<id>`
 
-RESPONSE 200
-```
+**METHOD** : `GET`
+
+**RESPONSE CODE** : `200 OK`
+
+**RESPONSE DATA**
+```json
 {
     "url": "http://127.0.0.1:8000/api/users/2",
     "username": "miha",
