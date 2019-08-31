@@ -18,15 +18,19 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'first_name', 'last_name', 'profile',)
+        fields = (
+            'url', 'username', 'email', 'first_name', 'last_name', 'profile',
+        )
+        read_only_fields = (
+            'url', 'username', 'email',
+        )
 
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('profile', {})
 
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        
+
         profile = instance.profile
         profile.title = profile_data.get('title', profile.title)
         profile.dob = profile_data.get('dob', profile.dob)
@@ -49,7 +53,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
-        user.save() # This already creates an Profile and Inventory instances.
+        user.save() # This already creates an Profile instance.
 
         return user
 
@@ -76,6 +80,25 @@ class InventorySerializer(serializers.ModelSerializer):
         fields = [
             'url', 'name', 'desc', 'ingredients'
         ]
+
+class InventoryCreateSerializer(serializers.ModelSerializer):
+    """
+    Inventory without ingredients.
+    """
+
+    class Meta:
+        model = Inventory
+        fields = [
+            'name', 'desc'
+        ]
+
+    def create(self, validated_data):
+
+        instance = Inventory(**validated_data)
+        instance.user = user=self.context["user"]
+        instance.save()
+
+        return instance
 
 class InventoryListSerializer(serializers.ModelSerializer):
     """

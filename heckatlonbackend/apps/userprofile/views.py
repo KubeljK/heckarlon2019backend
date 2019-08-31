@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from apps.userprofile.serializers import UserSerializer, UserRegisterSerializer,\
     ProfileSerializer, InventorySerializer, InventoryIngredientInsertSerializer,\
-    InventoryListSerializer, InventoryIngredientUpdateSerializer
+    InventoryListSerializer, InventoryIngredientUpdateSerializer, InventoryCreateSerializer
 from apps.userprofile.permissions import OwnProfilePermission
 from apps.userprofile.models import Profile, Inventory, InventoryIngredient
 
@@ -70,7 +70,7 @@ class EditProfile(generics.RetrieveUpdateAPIView):
         obj = get_object_or_404(queryset, id=self.request.user.id)
         return obj
 
-class InventoryList(generics.ListAPIView):
+class InventoryList(generics.ListCreateAPIView):
     """
     List all Inventory objects.
     GET method.
@@ -85,6 +85,22 @@ class InventoryList(generics.ListAPIView):
     def get_queryset(self):
         queryset = Inventory.objects.filter(user=self.request.user)
         return queryset
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = InventoryCreateSerializer(
+            data=request.data, context={"user":request.user})
+        if not serializer.is_valid():
+            return Response(serializer.errors)
+        serializer.save()
+
+        return Response(
+            data={
+                "message": "Inventory created",
+                "inventory": serializer.data
+            },
+            status=status.HTTP_201_CREATED
+        )
 
 class InventoryDetails(generics.RetrieveUpdateDestroyAPIView):
     """
