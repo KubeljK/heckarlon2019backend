@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'raven.contrib.django.raven_compat',
+    # 'raven.contrib.django.raven_compat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,9 +147,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
-RAVEN_CONFIG = {
-    'dsn': 'https://23d72910953e4c3b9cea905e240186c7@sentry.io/1547226',
-}
+# RAVEN_CONFIG = {
+#     'dsn': 'https://23d72910953e4c3b9cea905e240186c7@sentry.io/1547226',
+# }
 
 LOGGING = {
     'version': 1,
