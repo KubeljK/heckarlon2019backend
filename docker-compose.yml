@@ -2,10 +2,11 @@ version: '3.7'
 
 services:
   web:
+    network_mode: "host"
     build: ./heckatlonbackend
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver localhost:8000
     volumes:
       - ./heckatlonbackend:/usr/src/app/
-    ports:
-      - 8000:8000
+    # ports:
+    #   - 8000:8000
     env_file: .env
